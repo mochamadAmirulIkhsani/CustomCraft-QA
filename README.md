@@ -20,8 +20,9 @@
 5. Create a new MySQL database and update the `.env` file with the database credentials
 6. Run `php artisan migrate` to create the database tables
 7. Run `php artisan db:seed` to seed the database with sample data
-8. Run `php artisan serve` to start the development server
-9. Open [http://localhost:8000](http://localhost:8000) in your browser to access the website
+8. Run `php artisan make:filament-user` to make the admin for login to dashboard admin
+9. Run `php artisan serve` to start the development server
+10. Open [http://localhost:8000](http://localhost:8000) in your browser to access the website
 
 ## Contributing
 
