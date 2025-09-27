@@ -123,7 +123,7 @@ class BannerResource extends Resource
                     // Sembunyikan secara default
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('sort_order', 'asc') // Urutkan berdasarkan sort_order menaik
+            ->defaultSort('created_at', 'desc') // Urutkan berdasarkan tanggal created_at terbaru
             ->reorderable('sort_order') // Aktifkan fitur drag-and-drop untuk mengubah urutan
             ->filters([
                 // Filter canggih untuk status aktif/tidak aktif

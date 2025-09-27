@@ -150,7 +150,7 @@
                             </div>
                         </div>
                         <div class="p-6">
-                            <p class="text-gray-600 text-sm line-clamp-3">{{ Str::limit(strip_tags($product->deskripsi), 120) }}</p>
+                            <p class="text-gray-600 text-sm line-clamp-3">{{ Str::limit($product->deskripsi, 120) }}</p>
                             <div class="mt-4 flex items-center text-maroon-500 font-semibold group-hover:text-maroon-600 transition-colors duration-200">
                                 <span class="mr-2">Lihat Detail</span>
                                 <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200"></i>
