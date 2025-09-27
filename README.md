@@ -13,8 +13,8 @@
 
 ## Installation
 
-1. Clone the repository
-2. Run `composer install` to install the dependencies or Pull branch `dev-ikhsan` to see the latest update
+1. Clone the repository use the main branch or Pull branch `dev-ikhsan` to see the latest update
+2. Run `composer install` to install the dependencies 
 3. Run `npm install` to install the frontend dependencies
 4. Run `npm run dev` to build the frontend assets
 5. Create a new MySQL database and update the `.env` file with the database credentials
