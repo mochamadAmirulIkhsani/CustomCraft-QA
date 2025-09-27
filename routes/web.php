@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PortfolioController;
@@ -14,9 +15,7 @@ use App\Http\Controllers\PortfolioController;
 
 // --- RUTE HALAMAN UTAMA & STATIS ---
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/about-us', function () {
-    return view('pages.about');
-})->name('aboutus');
+Route::get('/about-us', [AboutController::class, 'index'])->name('aboutus');
 
 
 // --- RUTE PRODUK ---

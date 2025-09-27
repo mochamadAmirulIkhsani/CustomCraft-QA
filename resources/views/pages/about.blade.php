@@ -194,61 +194,76 @@
             </p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="group text-center">
-                <div class="card card-hover p-8">
-                    <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-maroon-500 to-red-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                        M
+        @if($teams->isNotEmpty())
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-{{ min($teams->count(), 4) }} gap-8">
+                @foreach($teams as $team)
+                    <div class="group text-center">
+                        <div class="card card-hover p-8">
+                            @if($team->photo)
+                                <img src="{{ asset('storage/' . $team->photo) }}" 
+                                     alt="{{ $team->name }}" 
+                                     class="w-24 h-24 mx-auto mb-6 rounded-full object-cover shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            @else
+                                <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-maroon-500 to-red-500 rounded-full flex items-center justify-center text-white text-2xl font-bold group-hover:scale-110 transition-transform duration-300">
+                                    {{ strtoupper(substr($team->name, 0, 1)) }}
+                                </div>
+                            @endif
+                            
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $team->name }}</h3>
+                            <h4 class="text-lg font-semibold text-maroon-600 mb-3">{{ $team->position }}</h4>
+                            <p class="text-gray-600 mb-4 leading-relaxed">{{ $team->description }}</p>
+                            
+                            @if($team->social_links && count($team->social_links) > 0)
+                                <div class="flex justify-center space-x-3">
+                                    @foreach($team->social_links as $social)
+                                        @if(isset($social['platform']) && isset($social['url']))
+                                            <a href="{{ $social['url'] }}" 
+                                               target="_blank"
+                                               class="text-gray-400 hover:text-maroon-500 transition-colors duration-200"
+                                               title="{{ ucfirst($social['platform']) }}">
+                                                @switch($social['platform'])
+                                                    @case('linkedin')
+                                                        <i class="fab fa-linkedin text-xl"></i>
+                                                        @break
+                                                    @case('instagram')
+                                                        <i class="fab fa-instagram text-xl"></i>
+                                                        @break
+                                                    @case('twitter')
+                                                        <i class="fab fa-twitter text-xl"></i>
+                                                        @break
+                                                    @case('facebook')
+                                                        <i class="fab fa-facebook text-xl"></i>
+                                                        @break
+                                                    @case('github')
+                                                        <i class="fab fa-github text-xl"></i>
+                                                        @break
+                                                    @case('behance')
+                                                        <i class="fab fa-behance text-xl"></i>
+                                                        @break
+                                                    @case('dribbble')
+                                                        <i class="fab fa-dribbble text-xl"></i>
+                                                        @break
+                                                    @default
+                                                        <i class="fas fa-link text-xl"></i>
+                                                @endswitch
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Creative Director</h3>
-                    <p class="text-gray-600 mb-4">Memimpin tim kreatif untuk menghasilkan desain yang inovatif dan menarik</p>
-                    <div class="flex justify-center space-x-3">
-                        <a href="#" class="text-gray-400 hover:text-maroon-500 transition-colors duration-200">
-                            <i class="fab fa-linkedin text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-maroon-500 transition-colors duration-200">
-                            <i class="fab fa-instagram text-xl"></i>
-                        </a>
-                    </div>
-                </div>
+                @endforeach
             </div>
-            
-            <div class="group text-center">
-                <div class="card card-hover p-8">
-                    <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-maroon-500 to-red-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                        P
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Production Manager</h3>
-                    <p class="text-gray-600 mb-4">Mengawasi proses produksi untuk memastikan kualitas dan ketepatan waktu</p>
-                    <div class="flex justify-center space-x-3">
-                        <a href="#" class="text-gray-400 hover:text-maroon-500 transition-colors duration-200">
-                            <i class="fab fa-linkedin text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-maroon-500 transition-colors duration-200">
-                            <i class="fab fa-instagram text-xl"></i>
-                        </a>
-                    </div>
+        @else
+            <div class="text-center py-16">
+                <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
+                    <i class="fas fa-users text-3xl text-gray-400"></i>
                 </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">No team members yet</h3>
+                <p class="text-gray-600">Team information will be displayed here</p>
             </div>
-            
-            <div class="group text-center">
-                <div class="card card-hover p-8">
-                    <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-maroon-500 to-red-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                        C
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Customer Relations</h3>
-                    <p class="text-gray-600 mb-4">Memastikan kepuasan pelanggan dan memberikan layanan terbaik</p>
-                    <div class="flex justify-center space-x-3">
-                        <a href="#" class="text-gray-400 hover:text-maroon-500 transition-colors duration-200">
-                            <i class="fab fa-linkedin text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-maroon-500 transition-colors duration-200">
-                            <i class="fab fa-instagram text-xl"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
 </section>
 
