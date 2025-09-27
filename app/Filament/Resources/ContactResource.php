@@ -43,7 +43,7 @@ class ContactResource extends Resource
 
     public static function getNavigationBadgeColor(): ?string
     {
-        return static::getModel()::unread()->count() > 0 ? 'warning' : null;
+        return static::getModel()::unread()->exists() ? 'warning' : null;
     }
 
     public static function form(Form $form): Form
@@ -94,7 +94,7 @@ class ContactResource extends Resource
                         Toggle::make('is_read')
                             ->label('Mark as Read')
                             ->default(false)
-                            ->reactive()
+                            ->live()
                             ->afterStateUpdated(function ($state, callable $set) {
                                 if ($state) {
                                     $set('read_at', now());

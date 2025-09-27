@@ -142,7 +142,7 @@
 
 
 
-        @if(isset($portfolios) && count($portfolios) > 0)
+        @if($portfolios->isNotEmpty())
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 @foreach($portfolios as $portfolio)
                     <div class="card card-hover group overflow-hidden">

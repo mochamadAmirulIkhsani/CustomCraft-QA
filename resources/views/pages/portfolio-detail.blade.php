@@ -108,14 +108,6 @@
             <p class="text-xl text-gray-600 max-w-2xl mx-auto">Lihat proyek-proyek berkualitas lainnya yang telah kami kerjakan</p>
         </div>
 
-        @php
-            $relatedPortfolios = App\Models\Portfolio::where('is_active', true)
-                                    ->where('id', '!=', $portfolio->id)
-                                    ->latest()
-                                    ->take(3)
-                                    ->get();
-        @endphp
-
         @if($relatedPortfolios->isNotEmpty())
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($relatedPortfolios as $related)

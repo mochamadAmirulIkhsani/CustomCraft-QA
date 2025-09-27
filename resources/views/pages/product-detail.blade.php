@@ -226,10 +226,6 @@
         
         {{-- Simple grid showing other products --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            @php
-                $otherProducts = \App\Models\Product::where('id', '!=', $product->id)->take(4)->get();
-            @endphp
-            
             @foreach($otherProducts as $otherProduct)
                 <a href="{{ route('product.detail', $otherProduct) }}" class="group block">
                     <div class="card card-hover overflow-hidden">
