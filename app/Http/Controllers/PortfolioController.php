@@ -12,7 +12,8 @@ class PortfolioController extends Controller
      */
     public function index(): View
     {
-        $portfolios = Portfolio::where('is_active', true)
+        $portfolios = Portfolio::with('product') // Load relasi product
+                              ->where('is_active', true)
                               ->latest()
                               ->get();
 
@@ -28,6 +29,9 @@ class PortfolioController extends Controller
         if (!$portfolio->is_active) {
             abort(404);
         }
+
+        // Load product relation
+        $portfolio->load('product');
 
         return view('pages.portfolio-detail', compact('portfolio'));
     }

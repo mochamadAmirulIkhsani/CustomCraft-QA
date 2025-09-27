@@ -86,47 +86,6 @@
     </div>
 </section>
 
-{{-- About Section --}}
-<section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="order-2 lg:order-1">
-                <img src="{{ asset('images/thumbsup.png') }}" alt="thumbs-up" 
-                     class="w-full max-w-md mx-auto rounded-2xl shadow-2xl">
-            </div>
-            <div class="order-1 lg:order-2">
-                <p class="text-maroon-500 font-semibold text-sm uppercase tracking-wider mb-2">Tentang Kami</p>
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                    Mengapa Menggunakan <br>
-                    <span class="text-maroon-500">Jasa Kami?</span>
-                </h2>
-                <p class="text-gray-600 text-lg leading-relaxed mb-8">
-                    Berusaha menciptakan setiap cetakan dengan kualitas unggul tanpa kompromi demi memastikan kepuasan pelanggan yang tinggi, 
-                    sekaligus terus menerapkan inovasi dalam proses produksi untuk meningkatkan efisiensi, ketepatan, dan kecepatan dalam menghasilkan produk berkualitas.
-                </p>
-                <p class="text-gray-600 text-lg leading-relaxed mb-8">
-                    Selain itu, memastikan setiap cetakan memiliki keunggulan yang membedakan, baik dari segi desain, keakuratan, 
-                    maupun keandalan, sehingga mampu memperkuat reputasi dan citra merek.
-                </p>
-                
-                <div class="space-y-6">
-                    @foreach($features as $item)
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-maroon-500 to-red-500 rounded-lg p-2 shadow-lg">
-                                <img src="{{ asset($item['icon']) }}" alt="feature icon" class="w-full h-full object-contain filter brightness-0 invert">
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="text-lg font-semibold text-gray-900 mb-1">{{ $item['title'] }}</h4>
-                                <p class="text-gray-600">{{ $item['desc'] }}</p>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 {{-- Services Section --}}
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -213,8 +172,14 @@
                             <div class="text-gray-600 line-clamp-3">
                                 {!! Str::limit(strip_tags($portfolio->description), 120) !!}
                             </div>
-                            <div class="mt-4 pt-4 border-t border-gray-100">
-                                <span class="inline-flex items-center text-sm text-maroon-600 font-medium">
+                            <div class="mt-4 pt-4 border-t border-gray-100 flex flex-wrap gap-2">
+                                @if($portfolio->product)
+                                    <span class="inline-flex items-center text-xs bg-maroon-100 text-maroon-700 px-2 py-1 rounded-full font-medium">
+                                        <i class="fas fa-box mr-1"></i>
+                                        {{ $portfolio->product->nama_produk }}
+                                    </span>
+                                @endif
+                                <span class="inline-flex items-center text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full font-medium">
                                     <i class="fas fa-tag mr-1"></i>
                                     {{ $portfolio->slug }}
                                 </span>
@@ -243,6 +208,30 @@
     </div>
 </section>
 
+
+{{-- CTA Section --}}
+<section class="py-20 bg-gradient-to-r from-maroon-600 to-red-600">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+            Siap Mewujudkan Proyek Impian Anda?
+        </h2>
+        <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+            Hubungi kami sekarang untuk konsultasi gratis dan dapatkan penawaran terbaik untuk kebutuhan percetakan Anda
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="https://wa.me/6287765748275" target="_blank"
+               class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-maroon-600 bg-white rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg">
+                <i class="fab fa-whatsapp mr-2"></i>
+                Chat WhatsApp
+            </a>
+            <a href="{{ route('contact.create') }}" 
+               class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white hover:text-maroon-600 transition-all duration-300 hover:scale-105">
+                <i class="fas fa-envelope mr-2"></i>
+                Kirim Pesan
+            </a>
+        </div>
+    </div>
+</section>
 
 {{-- Testimonials Section --}}
 <section class="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
@@ -300,30 +289,6 @@
                 <p class="text-gray-600">Testimonial pelanggan akan ditampilkan di sini</p>
             </div>
         @endif
-    </div>
-</section>
-
-{{-- CTA Section --}}
-<section class="py-20 bg-gradient-to-r from-maroon-600 to-red-600">
-    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
-            Siap Mewujudkan Proyek Impian Anda?
-        </h2>
-        <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-            Hubungi kami sekarang untuk konsultasi gratis dan dapatkan penawaran terbaik untuk kebutuhan percetakan Anda
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://wa.me/6287765748275" target="_blank"
-               class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-maroon-600 bg-white rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg">
-                <i class="fab fa-whatsapp mr-2"></i>
-                Chat WhatsApp
-            </a>
-            <a href="{{ route('contact.create') }}" 
-               class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white hover:text-maroon-600 transition-all duration-300 hover:scale-105">
-                <i class="fas fa-envelope mr-2"></i>
-                Kirim Pesan
-            </a>
-        </div>
     </div>
 </section>
 

@@ -59,7 +59,8 @@ class HomeController extends Controller
                                   ->get();
 
         // AMBIL DATA PORTFOLIO
-        $portfolios = Portfolio::where('is_active', true)
+        $portfolios = Portfolio::with('product') // Load relasi product
+                              ->where('is_active', true)
                               ->latest()
                               ->take(6) // Ambil 6 portfolio terbaru
                               ->get();

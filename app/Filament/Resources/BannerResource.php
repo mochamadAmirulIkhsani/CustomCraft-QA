@@ -28,12 +28,17 @@ use Illuminate\Database\Eloquent\Builder;
 
 class BannerResource extends Resource
 {
-    protected static ?string $navigationLabel = 'Banner';
-
     protected static ?string $model = Banner::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-photo';
-    protected static ?string $pluralModelLabel = 'Banner';
-    protected static ?int $navigationSort = 2; // Urutkan menu di sidebar
+
+    protected static ?string $navigationLabel = 'Banners';
+
+    protected static ?string $pluralModelLabel = 'Banners';
+
+    protected static ?string $navigationGroup = 'Content Management';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

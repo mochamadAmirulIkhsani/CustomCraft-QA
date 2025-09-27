@@ -51,9 +51,17 @@
                     <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                         {{ $portfolio->name }}
                     </h1>
-                    <div class="flex items-center text-gray-600 mb-8">
-                        <i class="fas fa-calendar-alt mr-2"></i>
-                        <span>Dibuat pada {{ $portfolio->created_at->format('d M Y') }}</span>
+                    <div class="flex flex-wrap items-center gap-4 text-gray-600 mb-8">
+                        <div class="flex items-center">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span>Dibuat pada {{ $portfolio->created_at->format('d M Y') }}</span>
+                        </div>
+                        @if($portfolio->product)
+                            <div class="flex items-center">
+                                <i class="fas fa-box mr-2"></i>
+                                <span>Produk: <strong class="text-maroon-600">{{ $portfolio->product->nama_produk }}</strong></span>
+                            </div>
+                        @endif
                     </div>
                 </div>
 

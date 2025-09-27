@@ -13,6 +13,7 @@ class Portfolio extends Model
     protected $fillable = [
         'name',
         'slug',
+        'product_id',
         'description',
         'image',
         'is_active',
@@ -43,5 +44,13 @@ class Portfolio extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    /**
+     * Relasi ke Product
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

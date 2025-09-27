@@ -4,11 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PortfolioResource\Pages;
 use App\Models\Portfolio;
+use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -30,7 +32,9 @@ class PortfolioResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Portfolio';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?string $navigationGroup = 'Content Management';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -56,6 +60,14 @@ class PortfolioResource extends Resource
                                 ->unique(Portfolio::class, 'slug', ignoreRecord: true)
                                 ->rules(['alpha_dash'])
                                 ->helperText('URL-friendly version of the name. Auto-generated from name.'),
+
+                            Select::make('product_id')
+                                ->label('Related Product')
+                                ->relationship('product', 'nama_produk')
+                                ->searchable()
+                                ->preload()
+                                ->nullable()
+                                ->helperText('Select a product that this portfolio is related to (optional).'),
 
                             RichEditor::make('description')
                                 ->label('Project Description')
@@ -109,6 +121,13 @@ class PortfolioResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->description(fn (Portfolio $record): string => $record->slug),
+
+                TextColumn::make('product.nama_produk')
+                    ->label('Product')
+                    ->searchable()
+                    ->sortable()
+                    ->default('No product selected')
+                    ->color(fn ($record) => $record->product ? 'primary' : 'gray'),
 
                 TextColumn::make('description')
                     ->label('Description')

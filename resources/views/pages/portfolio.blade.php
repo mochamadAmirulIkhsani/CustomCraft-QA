@@ -60,14 +60,24 @@
                             <div class="text-gray-600 line-clamp-3 mb-4">
                                 {!! Str::limit(strip_tags($portfolio->description), 150) !!}
                             </div>
-                            <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                                <span class="inline-flex items-center text-sm text-maroon-600 font-medium">
-                                    <i class="fas fa-tag mr-1"></i>
-                                    {{ $portfolio->slug }}
-                                </span>
-                                <span class="text-sm text-gray-500">
-                                    {{ $portfolio->created_at->format('M Y') }}
-                                </span>
+                            <div class="pt-4 border-t border-gray-100">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    @if($portfolio->product)
+                                        <span class="inline-flex items-center text-xs bg-maroon-100 text-maroon-700 px-2 py-1 rounded-full font-medium">
+                                            <i class="fas fa-box mr-1"></i>
+                                            {{ $portfolio->product->nama_produk }}
+                                        </span>
+                                    @endif
+                                    <span class="inline-flex items-center text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full font-medium">
+                                        <i class="fas fa-tag mr-1"></i>
+                                        {{ $portfolio->slug }}
+                                    </span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-500">
+                                        {{ $portfolio->created_at->format('M Y') }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
