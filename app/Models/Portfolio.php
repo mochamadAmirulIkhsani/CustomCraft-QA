@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Portfolio extends Model
@@ -23,7 +24,7 @@ class Portfolio extends Model
         'is_active' => 'boolean',
     ];
 
-    // Auto generate slug from name
+    // Auto generate slug from name and handle file cleanup
     protected static function boot()
     {
         parent::boot();
@@ -35,8 +36,24 @@ class Portfolio extends Model
         });
 
         static::updating(function ($portfolio) {
+            // Handle slug generation
             if ($portfolio->isDirty('name') && empty($portfolio->getOriginal('slug'))) {
                 $portfolio->slug = Str::slug($portfolio->name);
+            }
+            
+            // Handle file cleanup when image is changed
+            $original = $portfolio->getOriginal('image');
+            $new = $portfolio->image;
+            
+            if ($original && $original !== $new && Storage::disk('public')->exists($original)) {
+                Storage::disk('public')->delete($original);
+            }
+        });
+
+        // Clean up file when deleting
+        static::deleting(function ($portfolio) {
+            if ($portfolio->image && Storage::disk('public')->exists($portfolio->image)) {
+                Storage::disk('public')->delete($portfolio->image);
             }
         });
     }
