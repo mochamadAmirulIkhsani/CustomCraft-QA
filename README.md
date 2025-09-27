@@ -2,7 +2,7 @@
 
 > A comprehensive e-commerce website for CustomCraft printing services with modern admin panel and dynamic content management.
 
-![CustomCraft](screenshot.png)
+![CustomCraft]
 
 ## 🚀 Features
 
