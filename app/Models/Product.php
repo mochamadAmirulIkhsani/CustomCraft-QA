@@ -17,4 +17,11 @@ class Product extends Model
         'image4',
     ];
 
+    /**
+     * Relasi ke Portfolio
+     */
+    public function portfolios()
+    {
+        return $this->hasMany(Portfolio::class);
+    }
 }

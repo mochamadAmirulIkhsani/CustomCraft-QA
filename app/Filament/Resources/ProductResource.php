@@ -20,11 +20,17 @@ use Illuminate\Support\Str;
 
 class ProductResource extends Resource
 {
-    protected static ?string $pluralModelLabel = 'Produk';
-
     protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag'; // Icon yang lebih relevan
+    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
+
+    protected static ?string $navigationLabel = 'Products';
+
+    protected static ?string $pluralModelLabel = 'Products';
+
+    protected static ?string $navigationGroup = 'E-Commerce';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -65,18 +71,18 @@ class ProductResource extends Resource
                                 ->disk('public')
                                 ->directory('images')
                                 ->required()
-                                ->imageEditor(), // Menambahkan image editor bawaan
+                                ->imageEditor(), 
 
                             // Mengelompokkan gambar pendukung
                             Grid::make(2)->schema([
                                 FileUpload::make('image2')
-                                    ->label('Gambar 2')
+                                    ->label('')
                                     ->image()->disk('public')->directory('images'),
                                 FileUpload::make('image3')
-                                    ->label('Gambar 3')
+                                    ->label('')
                                     ->image()->disk('public')->directory('images'),
                                 FileUpload::make('image4')
-                                    ->label('Gambar 4')
+                                    ->label('')
                                     ->image()->disk('public')->directory('images'),
                             ]),
 
@@ -134,6 +140,7 @@ class ProductResource extends Resource
             ->filters([
                 //
             ])
+            ->defaultSort('created_at', 'desc')
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),

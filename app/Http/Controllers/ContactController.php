@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -28,7 +29,10 @@ class ContactController extends Controller
             'message' => 'required|string|min:10',
         ]);
 
-        return redirect()->route('contact.form')
-                         ->with('success', 'Terima kasih! Pesan Anda telah berhasil dikirim.');
+        // Create contact record in database
+        Contact::create($validated);
+
+        return redirect()->route('contact.create')
+                         ->with('success', 'Terima kasih! Pesan Anda telah berhasil dikirim dan akan kami proses segera.');
     }
 }
