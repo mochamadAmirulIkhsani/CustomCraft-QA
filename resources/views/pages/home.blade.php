@@ -171,6 +171,79 @@
     </div>
 </section>
 
+
+{{-- Portfolio Section --}}
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <p class="text-maroon-500 font-semibold text-sm uppercase tracking-wider mb-2">Portfolio</p>
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Karya Terbaik Kami</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Lihat berbagai proyek berkualitas tinggi yang telah kami kerjakan</p>
+        </div>
+
+
+
+        @if(isset($portfolios) && count($portfolios) > 0)
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                @foreach($portfolios as $portfolio)
+                    <div class="card card-hover group overflow-hidden">
+                        <div class="relative overflow-hidden">
+                            @if($portfolio->image)
+                                <img src="{{ asset('storage/' . $portfolio->image) }}" 
+                                     alt="{{ $portfolio->name }}" 
+                                     class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            @else
+                                <div class="w-full h-64 bg-gradient-to-br from-maroon-500 to-red-500 flex items-center justify-center">
+                                    <i class="fas fa-image text-white text-6xl opacity-50"></i>
+                                </div>
+                            @endif
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div class="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <a href="{{ route('portfolio.detail', $portfolio->slug) }}" 
+                                   class="inline-flex items-center text-white font-semibold hover:text-maroon-300 transition-colors">
+                                    <i class="fas fa-external-link-alt mr-2"></i>
+                                    Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-maroon-600 transition-colors">
+                                {{ $portfolio->name }}
+                            </h3>
+                            <div class="text-gray-600 line-clamp-3">
+                                {!! Str::limit(strip_tags($portfolio->description), 120) !!}
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-100">
+                                <span class="inline-flex items-center text-sm text-maroon-600 font-medium">
+                                    <i class="fas fa-tag mr-1"></i>
+                                    {{ $portfolio->slug }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="text-center">
+                <a href="{{ route('portfolio') }}" 
+                   class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-maroon-600 to-red-600 rounded-full hover:from-maroon-700 hover:to-red-700 transition-all duration-300 hover:scale-105 shadow-lg">
+                    <i class="fas fa-folder-open mr-2"></i>
+                    Lihat Semua Portfolio
+                </a>
+            </div>
+        @else
+            <div class="text-center py-16">
+                <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
+                    <i class="fas fa-folder-open text-3xl text-gray-400"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Belum ada portfolio</h3>
+                <p class="text-gray-600">Portfolio proyek akan ditampilkan di sini</p>
+            </div>
+        @endif
+    </div>
+</section>
+
+
 {{-- Testimonials Section --}}
 <section class="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

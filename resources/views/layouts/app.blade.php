@@ -52,6 +52,10 @@
                            class="px-3 py-2 text-sm font-medium transition-colors duration-200 {{ request()->routeIs('catalogue') ? 'text-white border-b-2 border-white' : 'text-gray-200 hover:text-white hover:border-b-2 hover:border-gray-200' }}">
                             Products
                         </a>
+                        <a href="{{ route('portfolio') }}" 
+                           class="px-3 py-2 text-sm font-medium transition-colors duration-200 {{ request()->routeIs('portfolio*') ? 'text-white border-b-2 border-white' : 'text-gray-200 hover:text-white hover:border-b-2 hover:border-gray-200' }}">
+                            Portfolio
+                        </a>
                         <a href="{{ route('aboutus') }}" 
                            class="px-3 py-2 text-sm font-medium transition-colors duration-200 {{ request()->routeIs('aboutus') ? 'text-white border-b-2 border-white' : 'text-gray-200 hover:text-white hover:border-b-2 hover:border-gray-200' }}">
                             About
@@ -139,6 +143,10 @@
                     <a href="{{ route('catalogue') }}" 
                        class="text-gray-200 hover:text-white transition-colors duration-200 text-sm font-medium">
                         Products
+                    </a>
+                    <a href="{{ route('portfolio') }}" 
+                       class="text-gray-200 hover:text-white transition-colors duration-200 text-sm font-medium">
+                        Portfolio
                     </a>
                     <a href="{{ route('contact.create') }}" 
                        class="text-gray-200 hover:text-white transition-colors duration-200 text-sm font-medium">

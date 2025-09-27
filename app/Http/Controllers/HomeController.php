@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\Portfolio;
 use App\Models\Product;
 use App\Models\Testimonial;
 use Illuminate\Contracts\View\View;
@@ -57,7 +58,13 @@ class HomeController extends Controller
                                   ->take(6) // Ambil 6 testimonial terbaru
                                   ->get();
 
+        // AMBIL DATA PORTFOLIO
+        $portfolios = Portfolio::where('is_active', true)
+                              ->latest()
+                              ->take(6) // Ambil 6 portfolio terbaru
+                              ->get();
+
         // Pass data to the view
-        return view('pages.home', compact('features', 'products', 'reviews', 'banners', 'testimonials'));
+        return view('pages.home', compact('features', 'products', 'reviews', 'banners', 'testimonials', 'portfolios'));
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PortfolioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,11 @@ Route::get('/about-us', function () {
 // --- RUTE PRODUK ---
 Route::get('/catalogue', [ProductController::class, 'index'])->name('catalogue');
 Route::get('/produk/{product}', [ProductController::class, 'show'])->name('product.detail');
+
+
+// --- RUTE PORTFOLIO ---
+Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio');
+Route::get('/portfolio/{portfolio:slug}', [PortfolioController::class, 'show'])->name('portfolio.detail');
 
 
 // --- RUTE FORMULIR KONTAK ---
