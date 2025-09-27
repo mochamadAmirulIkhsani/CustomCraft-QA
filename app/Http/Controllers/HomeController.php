@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\Portfolio;
 use App\Models\Product;
+use App\Models\Testimonial;
 use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
@@ -50,9 +52,20 @@ class HomeController extends Controller
                          ->orderBy('sort_order', 'asc') // Urutkan sesuai sort_order
                          ->get();
 
-        // Kirim koleksi $banners langsung ke view
+        // AMBIL DATA TESTIMONIAL
+        $testimonials = Testimonial::where('is_active', true)
+                                  ->latest()
+                                  ->take(6) // Ambil 6 testimonial terbaru
+                                  ->get();
+
+        // AMBIL DATA PORTFOLIO
+        $portfolios = Portfolio::with('product') // Load relasi product
+                              ->where('is_active', true)
+                              ->latest()
+                              ->take(6) // Ambil 6 portfolio terbaru
+                              ->get();
 
         // Pass data to the view
-        return view('pages.home', compact('features', 'products', 'reviews', 'banners'));
+        return view('pages.home', compact('features', 'products', 'reviews', 'banners', 'testimonials', 'portfolios'));
     }
 }

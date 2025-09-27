@@ -28,12 +28,17 @@ use Illuminate\Database\Eloquent\Builder;
 
 class BannerResource extends Resource
 {
-    protected static ?string $navigationLabel = 'Banner';
-
     protected static ?string $model = Banner::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-photo';
-    protected static ?string $pluralModelLabel = 'Banner';
-    protected static ?int $navigationSort = 2; // Urutkan menu di sidebar
+
+    protected static ?string $navigationLabel = 'Banners';
+
+    protected static ?string $pluralModelLabel = 'Banners';
+
+    protected static ?string $navigationGroup = 'Content Management';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -123,7 +128,7 @@ class BannerResource extends Resource
                     // Sembunyikan secara default
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('sort_order', 'asc') // Urutkan berdasarkan sort_order menaik
+            ->defaultSort('created_at', 'desc') // Urutkan berdasarkan tanggal created_at terbaru
             ->reorderable('sort_order') // Aktifkan fitur drag-and-drop untuk mengubah urutan
             ->filters([
                 // Filter canggih untuk status aktif/tidak aktif
