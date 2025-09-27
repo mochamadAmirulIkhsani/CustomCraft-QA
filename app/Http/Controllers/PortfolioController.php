@@ -33,6 +33,15 @@ class PortfolioController extends Controller
         // Load product relation
         $portfolio->load('product');
 
-        return view('pages.portfolio-detail', compact('portfolio'));
+        // Get related portfolios (other active portfolios excluding current one)
+        // Using select to only fetch needed columns for better performance
+        $relatedPortfolios = Portfolio::where('is_active', true)
+            ->where('id', '!=', $portfolio->id)
+            ->select(['id', 'name', 'slug', 'description', 'image'])
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('pages.portfolio-detail', compact('portfolio', 'relatedPortfolios'));
     }
 }

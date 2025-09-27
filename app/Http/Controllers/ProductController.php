@@ -29,6 +29,14 @@ class ProductController extends Controller
 
     public function show(Product $product): View
     {
-        return view('pages.product-detail', ['product' => $product]);
+        // Get related products (other products excluding current one)
+        // Using select to only fetch needed columns for better performance
+        $otherProducts = Product::where('id', '!=', $product->id)
+            ->select(['id', 'nama_produk', 'deskripsi', 'image'])
+            ->latest()
+            ->take(4)
+            ->get();
+
+        return view('pages.product-detail', compact('product', 'otherProducts'));
     }
 }
