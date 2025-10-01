@@ -94,7 +94,17 @@ class PortfolioResource extends Resource
                                 ])
                                 ->imagePreviewHeight('150')
                                 ->required()
-                                ->helperText('Recommended size: 800x600 pixels'),
+                                ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
+                                ->maxSize(2048) // 2MB in kilobytes
+                                ->rules([
+                                    'image',
+                                    'mimes:jpeg,jpg,png',
+                                    'max:2048',
+                                    'dimensions:min_width=300,min_height=200,max_width=4000,max_height=4000'
+                                ])
+                                ->helperText('Format: JPG, PNG | Max: 2MB | Min: 300x200px | Recommended: 800x600px')
+                                ->uploadingMessage('Uploading image...')
+                                ->uploadProgressIndicatorPosition('right'),
 
                             Toggle::make('is_active')
                                 ->label('Active')

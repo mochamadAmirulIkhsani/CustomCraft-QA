@@ -195,7 +195,6 @@ class ContactResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('mark_as_read')
                     ->label('Mark as Read')
                     ->icon('heroicon-o-check-circle')
