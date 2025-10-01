@@ -24,6 +24,22 @@ class Portfolio extends Model
         'is_active' => 'boolean',
     ];
 
+    /**
+     * Validation rules for portfolio image
+     */
+    public static function getImageValidationRules(): array
+    {
+        return [
+            'image' => [
+                'required',
+                'image',
+                'mimes:jpeg,jpg,png',
+                'max:2048', // 2MB
+                'dimensions:min_width=300,min_height=200,max_width=4000,max_height=4000'
+            ]
+        ];
+    }
+
     // Auto generate slug from name and handle file cleanup
     protected static function boot()
     {
