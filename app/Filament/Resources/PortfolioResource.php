@@ -41,7 +41,6 @@ class PortfolioResource extends Resource
         return $form
             ->schema([
                 Grid::make(3)->schema([
-                    // Main content section
                     Section::make('Portfolio Details')
                         ->schema([
                             TextInput::make('name')
