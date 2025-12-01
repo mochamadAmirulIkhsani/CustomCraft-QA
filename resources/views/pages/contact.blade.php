@@ -124,6 +124,23 @@
                     </div>
                 @endif
 
+                {{-- Rate Limit Error --}}
+                @if (session('rate_limit_error'))
+                    <div class="mb-6 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-hourglass-half text-orange-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-orange-700 font-semibold">{{ session('rate_limit_error') }}</p>
+                                <p class="text-sm text-orange-600 mt-1">
+                                    Untuk mencegah spam, kami membatasi maksimal 3 pengiriman pesan setiap 5 menit per alamat IP.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 @if ($errors->any())
                     <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
                         <div class="flex">
@@ -136,6 +153,31 @@
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                {{-- Rate Limit Information --}}
+                @if(isset($remainingAttempts))
+                    <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-info-circle text-blue-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                @if($remainingAttempts > 0)
+                                    <p class="text-blue-700">
+                                        <span class="font-semibold">Sisa kesempatan:</span> {{ $remainingAttempts }} dari 3 pengiriman dalam 5 menit
+                                    </p>
+                                @else
+                                    <p class="text-blue-700">
+                                        <span class="font-semibold">Batas tercapai:</span> Anda sudah menggunakan semua kesempatan. Tunggu 5 menit untuk mengirim lagi.
+                                    </p>
+                                @endif
+                                <p class="text-sm text-blue-600 mt-1">
+                                    Kebijakan ini membantu kami menjaga kualitas layanan dan mencegah spam.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -235,11 +277,28 @@
                     
                     {{-- Submit Button --}}
                     <div class="pt-4">
-                        <button type="submit" 
-                                class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-maroon-500 rounded-lg hover:bg-maroon-600 focus:ring-4 focus:ring-maroon-500/20 transition-all duration-300 hover:scale-105 shadow-lg">
-                            <i class="fas fa-paper-plane mr-2"></i>
-                            Kirim Pesan
-                        </button>
+                        @if(isset($remainingAttempts) && $remainingAttempts <= 0)
+                            <button type="button" 
+                                    disabled
+                                    class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-gray-400 rounded-lg cursor-not-allowed shadow-lg">
+                                <i class="fas fa-hourglass-half mr-2"></i>
+                                Tunggu 5 Menit
+                            </button>
+                            <p class="text-sm text-gray-500 mt-2">
+                                Anda telah mencapai batas pengiriman. Silakan tunggu beberapa saat sebelum mengirim pesan lagi.
+                            </p>
+                        @else
+                            <button type="submit" 
+                                    class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-maroon-500 rounded-lg hover:bg-maroon-600 focus:ring-4 focus:ring-maroon-500/20 transition-all duration-300 hover:scale-105 shadow-lg">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Kirim Pesan
+                                @if(isset($remainingAttempts) && $remainingAttempts < 3)
+                                    <span class="ml-2 text-xs bg-maroon-700 px-2 py-1 rounded-full">
+                                        {{ $remainingAttempts }} tersisa
+                                    </span>
+                                @endif
+                            </button>
+                        @endif
                     </div>
                 </form>
             </div>
