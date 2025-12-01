@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SweetAlert Test - CustomCraft Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #7f1d1d;
+            border-bottom: 3px solid #7f1d1d;
+            padding-bottom: 10px;
+        }
+
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #7f1d1d;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #7f1d1d;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #991b1b;
+        }
+
+        .info {
+            background: #e0f2fe;
+            border-left: 4px solid #0284c7;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🧪 SweetAlert Test - CustomCraft Login</h1>
+
+        <div class="info">
+            <strong>ℹ️ Informasi:</strong> Halaman ini adalah demo SweetAlert yang akan muncul pada halaman login
+            Filament CustomCraft ketika terjadi error.
+        </div>
+
+        <div class="test-section">
+            <h2>Test Case 1: Email Tidak Terdaftar</h2>
+            <p>Simulasi ketika user memasukkan email yang tidak terdaftar dalam sistem.</p>
+            <button onclick="testEmailNotRegistered()">
+                🔴 Test Email Tidak Terdaftar
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>Test Case 2: Password Salah</h2>
+            <p>Simulasi ketika user memasukkan password yang salah (email terdaftar).</p>
+            <button onclick="testWrongPassword()">
+                🔴 Test Password Salah
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>Test Case 3: Terlalu Banyak Percobaan</h2>
+            <p>Simulasi rate limiting ketika user terlalu banyak mencoba login.</p>
+            <button onclick="testRateLimiting()">
+                🔴 Test Rate Limiting
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>Test All Cases</h2>
+            <p>Jalankan semua test case secara berurutan.</p>
+            <button onclick="testAll()" style="background: #059669;">
+                ✅ Jalankan Semua Test
+            </button>
+        </div>
+
+        <hr style="margin: 30px 0;">
+
+        <h2>📋 Checklist Verifikasi</h2>
+        <div class="info">
+            <p>Saat menjalankan test, pastikan:</p>
+            <ul>
+                <li>✅ SweetAlert modal muncul di tengah layar</li>
+                <li>✅ Background overlay gelap (dim) terlihat</li>
+                <li>✅ Icon error (❌) berwarna merah muncul</li>
+                <li>✅ Title dan message sesuai dengan skenario</li>
+                <li>✅ Tombol "OK" berwarna maroon (#7f1d1d)</li>
+                <li>✅ Tidak bisa close dengan klik outside atau ESC</li>
+                <li>✅ Modal hanya close saat klik tombol "OK"</li>
+            </ul>
+        </div>
+
+        <hr style="margin: 30px 0;">
+
+        <h2>🔗 Link Akses</h2>
+        <div class="info">
+            <p><strong>Halaman Login Filament:</strong></p>
+            <p><a href="http://localhost:8000/admin/login" target="_blank" style="color: #7f1d1d; font-weight: bold;">
+                    👉 http://localhost:8000/admin/login
+                </a></p>
+            <br>
+            <p><strong>Test Credentials:</strong></p>
+            <ul>
+                <li><strong>Email terdaftar:</strong> <code>admin@customcraft.com</code></li>
+                <li><strong>Password benar:</strong> <code>password</code></li>
+                <li><strong>Email tidak terdaftar:</strong> <code>tidakterdaftar@gmail.com</code></li>
+                <li><strong>Password salah:</strong> <code>wrongpassword123</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi SweetAlert yang sama dengan implementasi
+        const sweetAlertConfig = {
+            confirmButtonColor: '#7f1d1d',
+            confirmButtonText: 'OK',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        };
+
+        function testEmailNotRegistered() {
+            Swal.fire({
+                ...sweetAlertConfig,
+                icon: 'error',
+                title: 'Email Tidak Terdaftar!',
+                text: 'Email yang Anda masukkan tidak terdaftar dalam sistem.',
+            });
+        }
+
+        function testWrongPassword() {
+            Swal.fire({
+                ...sweetAlertConfig,
+                icon: 'error',
+                title: 'Password Salah!',
+                text: 'Password yang Anda masukkan tidak sesuai. Silakan coba lagi.',
+            });
+        }
+
+        function testRateLimiting() {
+            const seconds = 60;
+            Swal.fire({
+                ...sweetAlertConfig,
+                icon: 'error',
+                title: 'Terlalu Banyak Percobaan!',
+                text: `Terlalu banyak percobaan login. Silakan coba lagi dalam ${seconds} detik.`,
+            });
+        }
+
+        async function testAll() {
+            // Test 1
+            await Swal.fire({
+                ...sweetAlertConfig,
+                icon: 'error',
+                title: 'Email Tidak Terdaftar!',
+                text: 'Email yang Anda masukkan tidak terdaftar dalam sistem.',
+            });
+
+            // Test 2
+            await Swal.fire({
+                ...sweetAlertConfig,
+                icon: 'error',
+                title: 'Password Salah!',
+                text: 'Password yang Anda masukkan tidak sesuai. Silakan coba lagi.',
+            });
+
+            // Test 3
+            await Swal.fire({
+                ...sweetAlertConfig,
+                icon: 'error',
+                title: 'Terlalu Banyak Percobaan!',
+                text: 'Terlalu banyak percobaan login. Silakan coba lagi dalam 60 detik.',
+            });
+
+            // Success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Test Selesai!',
+                text: 'Semua test case berhasil dijalankan.',
+                confirmButtonColor: '#059669',
+                confirmButtonText: 'OK',
+            });
+        }
+    </script>
+</body>
+
+</html>

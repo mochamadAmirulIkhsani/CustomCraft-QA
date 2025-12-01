@@ -10,7 +10,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
-class LatestProducts extends BaseWidget
+class LatestProduct extends BaseWidget
 {
     protected static bool $isLazy = true;
     protected static ?string $heading = 'Produk Terbaru';

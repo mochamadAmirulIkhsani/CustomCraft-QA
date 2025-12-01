@@ -33,5 +33,8 @@ Route::get('/portfolio/{portfolio:slug}', [PortfolioController::class, 'show'])-
 // Saya ganti namanya menjadi 'contact.create' agar lebih sesuai standar
 Route::get('/contact-us', [ContactController::class, 'create'])->name('contact.create');
 
-// Rute untuk MENGIRIM data formulir (method POST)
-Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
+// Rute untuk MENGIRIM data formulir (method POST) dengan rate limiting
+// Maksimal 3 submission per 5 menit per IP address
+Route::post('/contact-us', [ContactController::class, 'store'])
+    ->middleware('throttle:contact-submissions')
+    ->name('contact.store');
